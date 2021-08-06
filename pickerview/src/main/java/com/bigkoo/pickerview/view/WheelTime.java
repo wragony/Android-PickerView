@@ -1,6 +1,7 @@
 package com.bigkoo.pickerview.view;
 
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.bigkoo.pickerview.R;
 import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
@@ -13,6 +14,7 @@ import com.contrarywind.view.WheelView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -77,6 +79,23 @@ public class WheelTime {
         } else {
             setSolar(year, month, day, h, m, s);
         }
+
+        setDefaultLayoutPosition();
+
+    }
+
+    public void setLayoutPositions(WheelView.LayoutPosition yearPoosition,
+                                   WheelView.LayoutPosition monthPosition,
+                                   WheelView.LayoutPosition dayPosition,
+                                   WheelView.LayoutPosition hourPosition,
+                                   WheelView.LayoutPosition minutePosition,
+                                   WheelView.LayoutPosition secondsPosition) {
+        wv_year.setLayoutPosition(yearPoosition);
+        wv_month.setLayoutPosition(monthPosition);
+        wv_day.setLayoutPosition(dayPosition);
+        wv_hours.setLayoutPosition(hourPosition);
+        wv_minutes.setLayoutPosition(minutePosition);
+        wv_seconds.setLayoutPosition(secondsPosition);
     }
 
     /**
@@ -224,6 +243,7 @@ public class WheelTime {
         wv_hours.setVisibility(type[3] ? View.VISIBLE : View.GONE);
         wv_minutes.setVisibility(type[4] ? View.VISIBLE : View.GONE);
         wv_seconds.setVisibility(type[5] ? View.VISIBLE : View.GONE);
+
         setContentTextSize();
     }
 
@@ -837,6 +857,21 @@ public class WheelTime {
     }
 
     /**
+     * 设置分割线的粗细
+     *
+     * @param dividerWidth
+     * @author wragony
+     */
+    public void setDividerWidth(int dividerWidth) {
+        wv_day.setDividerWidth(dividerWidth);
+        wv_month.setDividerWidth(dividerWidth);
+        wv_year.setDividerWidth(dividerWidth);
+        wv_hours.setDividerWidth(dividerWidth);
+        wv_minutes.setDividerWidth(dividerWidth);
+        wv_seconds.setDividerWidth(dividerWidth);
+    }
+
+    /**
      * 设置分割线之间的文字的颜色
      *
      * @param textColorCenter
@@ -897,4 +932,86 @@ public class WheelTime {
         wv_minutes.setAlphaGradient(isAlphaGradient);
         wv_seconds.setAlphaGradient(isAlphaGradient);
     }
+
+
+    private void setDefaultLayoutPosition() {
+        // 获取可见子view
+        ViewGroup viewGroup = null;
+        if (view instanceof ViewGroup) {
+            viewGroup = (ViewGroup) this.view;
+        }
+        if (null == viewGroup) {
+            return;
+        }
+
+        int childCount = viewGroup.getChildCount();
+        if (childCount == 1) {
+            setLayoutPositions(
+                    WheelView.LayoutPosition.SINGLE,
+                    WheelView.LayoutPosition.SINGLE,
+                    WheelView.LayoutPosition.SINGLE,
+                    WheelView.LayoutPosition.SINGLE,
+                    WheelView.LayoutPosition.SINGLE,
+                    WheelView.LayoutPosition.SINGLE
+            );
+            return;
+        }
+
+        List<Boolean> typeList = new ArrayList<>();
+        for (int i = 0; i < type.length; i++) {
+            typeList.add(type[i]);
+        }
+
+        int firstVisibleIndex = typeList.indexOf(true);
+        int lastVisibleIndex = typeList.lastIndexOf(true);
+
+        int visibleCount = 0;
+        for (int i = 0; i < childCount; i++) {
+            WheelView wheelView = (WheelView) viewGroup.getChildAt(i);
+            if (wheelView.getVisibility() == View.VISIBLE) {
+                WheelView.LayoutPosition position;
+                if (firstVisibleIndex == i) {
+                    position = WheelView.LayoutPosition.START;
+                } else if (lastVisibleIndex == i) {
+                    position = WheelView.LayoutPosition.END;
+                } else {
+                    position = WheelView.LayoutPosition.MIDDLE;
+                }
+
+                if (wheelView == wv_year) {
+                    wv_year.setLayoutPosition(position);
+                }
+                if (wheelView == wv_month) {
+                    wv_month.setLayoutPosition(position);
+                }
+                if (wheelView == wv_day) {
+                    wv_day.setLayoutPosition(position);
+                }
+                if (wheelView == wv_hours) {
+                    wv_hours.setLayoutPosition(position);
+                }
+                if (wheelView == wv_minutes) {
+                    wv_minutes.setLayoutPosition(position);
+                }
+                if (wheelView == wv_seconds) {
+                    wv_seconds.setLayoutPosition(position);
+                }
+                if (type[i]) {
+                    visibleCount++;
+                }
+            }
+        }
+        if (visibleCount == 1) {
+            setLayoutPositions(
+                    WheelView.LayoutPosition.SINGLE,
+                    WheelView.LayoutPosition.SINGLE,
+                    WheelView.LayoutPosition.SINGLE,
+                    WheelView.LayoutPosition.SINGLE,
+                    WheelView.LayoutPosition.SINGLE,
+                    WheelView.LayoutPosition.SINGLE
+            );
+        }
+    }
+
+
 }

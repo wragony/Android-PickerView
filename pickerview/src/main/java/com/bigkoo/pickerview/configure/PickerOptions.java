@@ -109,6 +109,7 @@ public class PickerOptions {
     public boolean isCenterLabel = false;//是否只显示中间的label,默认每个item都显示
     public Typeface font = Typeface.MONOSPACE;//字体样式
     public WheelView.DividerType dividerType = WheelView.DividerType.FILL;//分隔线类型
+    public int dividerWidth =  2;//分割线粗细
     public int itemsVisibleCount = 9; //最大可见条目数
     public boolean isAlphaGradient = false; //透明度渐变
 }

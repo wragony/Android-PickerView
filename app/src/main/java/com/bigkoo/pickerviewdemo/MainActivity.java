@@ -264,21 +264,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 btn_CustomTime.setText(getTime(date));
             }
         })
-                /*.setType(TimePickerView.Type.ALL)//default is all
-                .setCancelText("Cancel")
-                .setSubmitText("Sure")
-                .setContentTextSize(18)
-                .setTitleSize(20)
-                .setTitleText("Title")
-                .setTitleColor(Color.BLACK)
-               /*.setDividerColor(Color.WHITE)//设置分割线的颜色
-                .setTextColorCenter(Color.LTGRAY)//设置选中项的颜色
-                .setLineSpacingMultiplier(1.6f)//设置两横线之间的间隔倍数
-                .setTitleBgColor(Color.DKGRAY)//标题背景颜色 Night mode
-                .setBgColor(Color.BLACK)//滚轮背景颜色 Night mode
-                .setSubmitColor(Color.WHITE)
-                .setCancelColor(Color.WHITE)*/
-                /*.animGravity(Gravity.RIGHT)// default is center*/
                 .setDate(selectedDate)
                 .setRangDate(startDate, endDate)
                 .setLayoutRes(R.layout.pickerview_custom_time, new CustomListener() {
@@ -286,7 +271,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void customLayout(View v) {
                         final TextView tvSubmit = (TextView) v.findViewById(R.id.tv_finish);
-                        ImageView ivCancel = (ImageView) v.findViewById(R.id.iv_cancel);
+                        TextView tvCancel = (TextView) v.findViewById(R.id.tv_cancel);
                         tvSubmit.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -294,7 +279,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 pvCustomTime.dismiss();
                             }
                         });
-                        ivCancel.setOnClickListener(new View.OnClickListener() {
+                        tvCancel.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 pvCustomTime.dismiss();

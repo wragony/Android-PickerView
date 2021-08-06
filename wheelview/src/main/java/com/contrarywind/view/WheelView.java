@@ -3,9 +3,13 @@ package com.contrarywind.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.CornerPathEffect;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -39,12 +43,18 @@ public class WheelView extends View {
     }
 
     public enum DividerType { // 分隔线类型
-        FILL, WRAP, CIRCLE
+        FILL, WRAP, CIRCLE, RECTANGLE
+    }
+
+    public enum LayoutPosition { // 滚轮在布局中的位置
+        START, MIDDLE, END, SINGLE
     }
 
     private static final String[] TIME_NUM = {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09"};
 
     private DividerType dividerType;//分隔线类型
+
+    private LayoutPosition layoutPosition;//位置
 
     private Context context;
     private Handler handler;
@@ -61,6 +71,11 @@ public class WheelView extends View {
     private Paint paintOuterText;
     private Paint paintCenterText;
     private Paint paintIndicator;
+
+    private Path dividerPath;
+    private CornerPathEffect mEffects;
+    private float dividerMargin = 40F;
+    private float dividerCorners = 10F;
 
     private WheelAdapter adapter;
 
@@ -202,6 +217,9 @@ public class WheelView extends View {
         paintIndicator = new Paint();
         paintIndicator.setColor(dividerColor);
         paintIndicator.setAntiAlias(true);
+
+        dividerPath = new Path();
+        setDividerCorners(dividerCorners);
 
         setLayerType(LAYER_TYPE_SOFTWARE, null);
     }
@@ -434,6 +452,33 @@ public class WheelView extends View {
             //半径始终以宽高中最大的来算
             float radius = Math.max((endX - startX), itemHeight) / 1.8f;
             canvas.drawCircle(measuredWidth / 2f, measuredHeight / 2f, radius, paintIndicator);
+        } else if (dividerType == DividerType.RECTANGLE) {
+
+            // 矩形框分割线 add by wragony
+            paintIndicator.setStyle(Paint.Style.STROKE);
+            paintIndicator.setPathEffect(mEffects);
+
+            if (layoutPosition == LayoutPosition.START) {
+
+                dividerPath.moveTo(measuredWidth, firstLineY);
+                dividerPath.lineTo(dividerMargin, firstLineY);
+                dividerPath.lineTo(dividerMargin, secondLineY);
+                dividerPath.lineTo(measuredWidth, secondLineY);
+                canvas.drawPath(dividerPath, paintIndicator);
+
+            } else if (layoutPosition == LayoutPosition.END) {
+
+                dividerPath.moveTo(0F, firstLineY);
+                dividerPath.lineTo(measuredWidth - dividerMargin, firstLineY);
+                dividerPath.lineTo(measuredWidth - dividerMargin, secondLineY);
+                dividerPath.lineTo(0F, secondLineY);
+                canvas.drawPath(dividerPath, paintIndicator);
+
+            } else {
+                canvas.drawLine(0.0F, firstLineY, measuredWidth, firstLineY, paintIndicator);
+                canvas.drawLine(0.0F, secondLineY, measuredWidth, secondLineY, paintIndicator);
+            }
+
         } else {
             canvas.drawLine(0.0F, firstLineY, measuredWidth, firstLineY, paintIndicator);
             canvas.drawLine(0.0F, secondLineY, measuredWidth, secondLineY, paintIndicator);
@@ -797,6 +842,25 @@ public class WheelView extends View {
         paintIndicator.setStrokeWidth(dividerWidth);
     }
 
+    /**
+     * 设置矩形分割线圆角
+     *
+     * @param corners
+     */
+    public void setDividerCorners(float corners) {
+        this.dividerCorners = corners;
+        mEffects = new CornerPathEffect(dividerCorners);
+    }
+
+    /**
+     * 设置矩形分割线左右距离父控件的间距
+     *
+     * @param margin
+     */
+    public void setDividerMargin(float margin) {
+        this.dividerMargin = margin;
+    }
+
     public void setDividerColor(int dividerColor) {
         this.dividerColor = dividerColor;
         paintIndicator.setColor(dividerColor);
@@ -804,6 +868,10 @@ public class WheelView extends View {
 
     public void setDividerType(DividerType dividerType) {
         this.dividerType = dividerType;
+    }
+
+    public void setLayoutPosition(LayoutPosition layoutPosition) {
+        this.layoutPosition = layoutPosition;
     }
 
     public void setLineSpacingMultiplier(float lineSpacingMultiplier) {

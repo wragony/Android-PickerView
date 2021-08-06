@@ -199,11 +199,24 @@ public class TimePickerBuilder {
      * 设置分割线的类型
      *
      * @param dividerType
+     * @auhtor wragony
      */
     public TimePickerBuilder setDividerType(WheelView.DividerType dividerType) {
         mPickerOptions.dividerType = dividerType;
         return this;
     }
+
+    /**
+     * 设置分割线的粗细
+     *
+     * @param dividerWidth
+     * @return
+     */
+    public TimePickerBuilder setDividerWidth(int dividerWidth) {
+        mPickerOptions.dividerWidth = dividerWidth;
+        return this;
+    }
+
 
     /**
      * {@link #setOutSideColor} instead.

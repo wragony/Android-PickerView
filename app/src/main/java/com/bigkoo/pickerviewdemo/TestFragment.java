@@ -17,6 +17,7 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.CustomListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.contrarywind.view.WheelView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -70,7 +71,7 @@ public class TestFragment extends Fragment implements View.OnClickListener {
                     @Override
                     public void customLayout(View v) {
                         final TextView tvSubmit = (TextView) v.findViewById(R.id.tv_finish);
-                        ImageView ivCancel = (ImageView) v.findViewById(R.id.iv_cancel);
+                        TextView tvCancel = (TextView) v.findViewById(R.id.tv_cancel);
                         tvSubmit.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -78,7 +79,7 @@ public class TestFragment extends Fragment implements View.OnClickListener {
                                 /*pvTime.dismiss();*/
                             }
                         });
-                        ivCancel.setOnClickListener(new View.OnClickListener() {
+                        tvCancel.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 /*pvTime.dismiss();*/
@@ -88,8 +89,14 @@ public class TestFragment extends Fragment implements View.OnClickListener {
                 })
                 .setType(new boolean[]{true, true, true, false, false, false})
                 .setLabel("", "", "", "", "", "") //设置空字符串以隐藏单位提示   hide label
-                .setDividerColor(Color.DKGRAY)
-                .setContentTextSize(20)
+                .setDividerColor(Color.parseColor("#50FF88"))
+                .setTextColorCenter(Color.parseColor("#50FF88"))
+                .setTextColorOut(Color.parseColor("#464951"))
+                .setDividerWidth(2)
+                .setBgColor(Color.parseColor("#131519"))
+                .setDividerType(WheelView.DividerType.RECTANGLE)
+                .setContentTextSize(16)
+                .setLineSpacingMultiplier(2.6F)
                 .setDate(selectedDate)
                 .setRangDate(startDate, selectedDate)
                 .setDecorView(mFrameLayout)//非dialog模式下,设置ViewGroup, pickerView将会添加到这个ViewGroup中
