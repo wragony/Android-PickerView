@@ -1,6 +1,8 @@
 
 ## Android-PickerView
 
+### 已迁移到jitpack平台
+
 [![API](https://img.shields.io/badge/API-9%2B-brightgreen.svg)](https://android-arsenal.com/api?level=9) 
 [![License](https://img.shields.io/badge/license-Apache%202-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Download](https://api.bintray.com/packages/contrarywind/maven/Android-PickerView/images/download.svg) ](https://bintray.com/contrarywind/maven/Android-PickerView/_latestVersion)
@@ -89,16 +91,34 @@
 
 #### Android-PickerView 库使用示例：
 
-#### 1.添加Jcenter仓库 Gradle依赖：
-```java
+#### 1.添加Jitpack仓库:
+
+```
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
+#### 2.添加Gradle依赖:
+
+```
 compile 'com.github.wragony:Android-PickerView:4.2.0'
 ```
 或者
 
 #### Maven
 ```
+<repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+</repositories>
 <dependency>
-<groupId>com.contrarywind</groupId>
+<groupId>com.github.wragony</groupId>
 <artifactId>Android-PickerView</artifactId>
 <version>4.2.0</version>
 <type>pom</type>
