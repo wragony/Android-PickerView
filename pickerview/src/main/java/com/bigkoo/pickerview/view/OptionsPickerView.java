@@ -18,9 +18,9 @@ import java.util.List;
  * 条件选择器
  * Created by Sai on 15/11/22.
  */
-public class OptionsPickerView<T> extends BasePickerView implements View.OnClickListener {
+public class OptionsPickerView<T> extends com.bigkoo.pickerview.view.BasePickerView implements View.OnClickListener {
 
-    private WheelOptions<T> wheelOptions;
+    private com.bigkoo.pickerview.view.WheelOptions<T> wheelOptions;
 
     private static final String TAG_SUBMIT = "submit";
     private static final String TAG_CANCEL = "cancel";
@@ -76,7 +76,7 @@ public class OptionsPickerView<T> extends BasePickerView implements View.OnClick
         final LinearLayout optionsPicker = (LinearLayout) findViewById(R.id.optionspicker);
         optionsPicker.setBackgroundColor(mPickerOptions.bgColorWheel);
 
-        wheelOptions = new WheelOptions<>(optionsPicker, mPickerOptions.isRestoreItem);
+        wheelOptions = new com.bigkoo.pickerview.view.WheelOptions<>(optionsPicker, mPickerOptions.isRestoreItem);
         if (mPickerOptions.optionsSelectChangeListener != null) {
             wheelOptions.setOptionsSelectChangeListener(mPickerOptions.optionsSelectChangeListener);
         }

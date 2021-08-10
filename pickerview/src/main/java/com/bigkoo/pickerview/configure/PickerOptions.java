@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import com.bigkoo.pickerview.R;
 import com.bigkoo.pickerview.listener.CustomListener;
 import com.bigkoo.pickerview.listener.OnOptionsSelectChangeListener;
@@ -63,6 +64,8 @@ public class PickerOptions {
 
     public boolean cyclic = false;//是否循环
     public boolean isLunarCalendar = false;//是否显示农历
+    // add by wragony
+    public boolean isEnglishMode = false;//是否英文模式
 
     public String label_year, label_month, label_day, label_hours, label_minutes, label_seconds;//单位
     public int x_offset_year, x_offset_month, x_offset_day, x_offset_hours, x_offset_minutes, x_offset_seconds;//单位

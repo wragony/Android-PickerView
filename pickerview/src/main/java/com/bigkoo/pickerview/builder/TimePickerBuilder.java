@@ -5,6 +5,7 @@ import android.support.annotation.ColorInt;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import com.bigkoo.pickerview.configure.PickerOptions;
 import com.bigkoo.pickerview.listener.CustomListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectChangeListener;
@@ -166,7 +167,6 @@ public class TimePickerBuilder {
      * 设置起始时间
      * 因为系统Calendar的月份是从0-11的,所以如果是调用Calendar的set方法来设置时间,月份的范围也要是从0-11
      */
-
     public TimePickerBuilder setRangDate(Calendar startDate, Calendar endDate) {
         mPickerOptions.startDate = startDate;
         mPickerOptions.endDate = endDate;
@@ -271,6 +271,12 @@ public class TimePickerBuilder {
 
     public TimePickerBuilder setLunarCalendar(boolean lunarCalendar) {
         mPickerOptions.isLunarCalendar = lunarCalendar;
+        return this;
+    }
+
+    //add by wragony
+    public TimePickerBuilder setEnglishMonthMode(boolean isEnglishMode) {
+        mPickerOptions.isEnglishMode = isEnglishMode;
         return this;
     }
 

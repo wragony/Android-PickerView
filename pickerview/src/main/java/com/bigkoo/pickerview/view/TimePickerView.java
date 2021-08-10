@@ -99,6 +99,7 @@ public class TimePickerView extends BasePickerView implements View.OnClickListen
         }
 
         wheelTime.setLunarMode(mPickerOptions.isLunarCalendar);
+        wheelTime.setEnglishMode(mPickerOptions.isEnglishMode);
 
         if (mPickerOptions.startYear != 0 && mPickerOptions.endYear != 0
                 && mPickerOptions.startYear <= mPickerOptions.endYear) {
@@ -167,7 +168,7 @@ public class TimePickerView extends BasePickerView implements View.OnClickListen
     /**
      * 设置可以选择的时间范围, 要在setTime之前调用才有效果
      */
-    private void setRangDate() {
+    public void setRangDate() {
         wheelTime.setRangDate(mPickerOptions.startDate, mPickerOptions.endDate);
         initDefaultSelectedDate();
     }
