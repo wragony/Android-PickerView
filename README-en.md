@@ -1,7 +1,7 @@
 
 # Android-PickerView
 
-
+### jitpack support
 
 [![API](https://img.shields.io/badge/API-9%2B-brightgreen.svg)](https://android-arsenal.com/api?level=9) 
 [![license](https://img.shields.io/hexpm/l/plug.svg)](http://www.apache.org/licenses/LICENSE-2.0)
@@ -38,18 +38,38 @@ and support for the linkage, dialog . It's very easy to use ,  you also can cust
 
 ### Gradle
 
-```java
-compile 'com.contrarywind:Android-PickerView:4.1.9'
+```
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
+```
+implementation "com.github.wragony.Android-PickerView:pickerview:v4.2.1"
+implementation "com.github.wragony.Android-PickerView:wheelview:v4.2.1"
 ```
 
 ### Maven
 
 ```
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
 <dependency>
-<groupId>com.contrarywind</groupId>
-<artifactId>Android-PickerView</artifactId>
-<version>4.1.8</version>
-<type>pom</type>
+    <groupId>com.github.wragony.Android-PickerView</groupId>
+    <artifactId>wheelview</artifactId>
+    <version>v4.2.1</version>
+</dependency>
+<dependency>
+    <groupId>com.github.wragony.Android-PickerView</groupId>
+    <artifactId>pickerview</artifactId>
+    <version>v4.2.1</version>
 </dependency>
 ```
 

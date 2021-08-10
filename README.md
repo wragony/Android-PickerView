@@ -105,7 +105,8 @@ allprojects {
 #### 2.添加Gradle依赖:
 
 ```
-compile 'com.github.wragony:Android-PickerView:4.2.0'
+implementation "com.github.wragony.Android-PickerView:pickerview:v4.2.1"
+implementation "com.github.wragony.Android-PickerView:wheelview:v4.2.1"
 ```
 或者
 
