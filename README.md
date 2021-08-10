@@ -91,7 +91,7 @@
 
 #### 1.添加Jcenter仓库 Gradle依赖：
 ```java
-compile 'com.contrarywind:Android-PickerView:4.1.9'
+compile 'com.github.wragony:Android-PickerView:4.2.0'
 ```
 或者
 
@@ -100,7 +100,7 @@ compile 'com.contrarywind:Android-PickerView:4.1.9'
 <dependency>
 <groupId>com.contrarywind</groupId>
 <artifactId>Android-PickerView</artifactId>
-<version>4.1.9</version>
+<version>4.2.0</version>
 <type>pom</type>
 </dependency>
 ```
