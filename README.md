@@ -40,6 +40,7 @@
 * 支持Dialog 模式。
 * 支持自定义设置容器。
 * 实时回调。
+* 【New】支持英文月份显示，增加圆角矩形框支持。
 
 
 ![TimePicker.gif](https://github.com/Bigkoo/Android-PickerView/blob/master/preview/timepicker.gif)
