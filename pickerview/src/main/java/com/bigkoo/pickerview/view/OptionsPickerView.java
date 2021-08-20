@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -11,7 +12,9 @@ import android.widget.TextView;
 
 import com.bigkoo.pickerview.R;
 import com.bigkoo.pickerview.configure.PickerOptions;
+import com.contrarywind.view.WheelView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +28,9 @@ public class OptionsPickerView<T> extends com.bigkoo.pickerview.view.BasePickerV
     private static final String TAG_SUBMIT = "submit";
     private static final String TAG_CANCEL = "cancel";
 
+    private View view;
+
+    private boolean options1Visible, options2Visible, options3Visible;
 
     public OptionsPickerView(PickerOptions pickerOptions) {
         super(pickerOptions.context);
@@ -76,6 +82,8 @@ public class OptionsPickerView<T> extends com.bigkoo.pickerview.view.BasePickerV
         final LinearLayout optionsPicker = (LinearLayout) findViewById(R.id.optionspicker);
         optionsPicker.setBackgroundColor(mPickerOptions.bgColorWheel);
 
+        view = optionsPicker;
+
         wheelOptions = new com.bigkoo.pickerview.view.WheelOptions<>(optionsPicker, mPickerOptions.isRestoreItem);
         if (mPickerOptions.optionsSelectChangeListener != null) {
             wheelOptions.setOptionsSelectChangeListener(mPickerOptions.optionsSelectChangeListener);
@@ -97,6 +105,8 @@ public class OptionsPickerView<T> extends com.bigkoo.pickerview.view.BasePickerV
         wheelOptions.setTextColorOut(mPickerOptions.textColorOut);
         wheelOptions.setTextColorCenter(mPickerOptions.textColorCenter);
         wheelOptions.isCenterLabel(mPickerOptions.isCenterLabel);
+
+
     }
 
     /**
@@ -152,9 +162,12 @@ public class OptionsPickerView<T> extends com.bigkoo.pickerview.view.BasePickerV
     public void setPicker(List<T> options1Items,
                           List<List<T>> options2Items,
                           List<List<List<T>>> options3Items) {
-
+        options1Visible = null != options1Items;
+        options2Visible = null != options2Items;
+        options3Visible = null != options3Items;
         wheelOptions.setPicker(options1Items, options2Items, options3Items);
         reSetCurrentItems();
+        setDefaultLayoutPosition();
     }
 
 
@@ -194,4 +207,43 @@ public class OptionsPickerView<T> extends com.bigkoo.pickerview.view.BasePickerV
     public boolean isDialog() {
         return mPickerOptions.isDialog;
     }
+
+    private void setDefaultLayoutPosition() {
+        // 获取可见子view
+        ViewGroup viewGroup = null;
+        if (view instanceof ViewGroup) {
+            viewGroup = (ViewGroup) this.view;
+        }
+        if (null == viewGroup) {
+            return;
+        }
+
+        int childCount = viewGroup.getChildCount();
+        if (childCount == 1) {
+            wheelOptions.setLayoutPositions(
+                    WheelView.LayoutPosition.SINGLE,
+                    WheelView.LayoutPosition.SINGLE,
+                    WheelView.LayoutPosition.SINGLE
+            );
+            return;
+        }
+
+        if (options1Visible && options2Visible && options3Visible) {
+            wheelOptions.setLayoutPositions(WheelView.LayoutPosition.START, WheelView.LayoutPosition.MIDDLE, WheelView.LayoutPosition.END);
+        } else if (!options1Visible && !options2Visible && options3Visible) {
+            wheelOptions.setLayoutPositions(WheelView.LayoutPosition.NONE, WheelView.LayoutPosition.NONE, WheelView.LayoutPosition.SINGLE);
+        } else if (!options1Visible && options2Visible && !options3Visible) {
+            wheelOptions.setLayoutPositions(WheelView.LayoutPosition.NONE, WheelView.LayoutPosition.SINGLE, WheelView.LayoutPosition.NONE);
+        } else if (options1Visible && !options2Visible && !options3Visible) {
+            wheelOptions.setLayoutPositions(WheelView.LayoutPosition.SINGLE, WheelView.LayoutPosition.NONE, WheelView.LayoutPosition.NONE);
+        } else if (!options1Visible && options2Visible && options3Visible) {
+            wheelOptions.setLayoutPositions(WheelView.LayoutPosition.NONE, WheelView.LayoutPosition.START, WheelView.LayoutPosition.END);
+        } else if (options1Visible && !options2Visible && options3Visible) {
+            wheelOptions.setLayoutPositions(WheelView.LayoutPosition.START, WheelView.LayoutPosition.NONE, WheelView.LayoutPosition.END);
+        } else if (options1Visible && options2Visible && !options3Visible) {
+            wheelOptions.setLayoutPositions(WheelView.LayoutPosition.START, WheelView.LayoutPosition.END, WheelView.LayoutPosition.NONE);
+        }
+    }
+
+
 }

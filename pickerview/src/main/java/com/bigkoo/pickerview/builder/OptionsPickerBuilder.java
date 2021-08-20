@@ -182,6 +182,17 @@ public class OptionsPickerBuilder {
     }
 
     /**
+     * 设置分割线的粗细
+     *
+     * @param dividerWidth
+     * @return
+     */
+    public OptionsPickerBuilder setDividerWidth(int dividerWidth) {
+        mPickerOptions.dividerWidth = dividerWidth;
+        return this;
+    }
+
+    /**
      * Set the textColor of selected item.
      *
      * @param textColorCenter color res.

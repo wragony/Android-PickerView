@@ -8,7 +8,9 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -45,7 +47,7 @@ public class WheelView extends View {
     }
 
     public enum LayoutPosition { // 滚轮在布局中的位置
-        START, MIDDLE, END, SINGLE
+        NONE, START, MIDDLE, END, SINGLE
     }
 
     private static final String[] TIME_NUM = {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09"};
@@ -376,6 +378,7 @@ public class WheelView extends View {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onDraw(Canvas canvas) {
         if (adapter == null) {
@@ -470,6 +473,11 @@ public class WheelView extends View {
                 dividerPath.lineTo(measuredWidth - dividerMargin, firstLineY);
                 dividerPath.lineTo(measuredWidth - dividerMargin, secondLineY);
                 dividerPath.lineTo(0F, secondLineY);
+                canvas.drawPath(dividerPath, paintIndicator);
+
+            } else if (layoutPosition == LayoutPosition.SINGLE) {
+
+                dividerPath.addRect(dividerMargin, firstLineY, measuredWidth - dividerMargin, secondLineY, Path.Direction.CW);
                 canvas.drawPath(dividerPath, paintIndicator);
 
             } else {

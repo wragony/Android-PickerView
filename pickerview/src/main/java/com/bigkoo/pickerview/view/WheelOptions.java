@@ -370,6 +370,21 @@ public class WheelOptions<T> {
     }
 
     /**
+     * 设置每个view 的位置
+     *
+     * @param options1
+     * @param options2
+     * @param options3
+     */
+    public void setLayoutPositions(WheelView.LayoutPosition options1,
+                                  WheelView.LayoutPosition options2,
+                                  WheelView.LayoutPosition options3) {
+        wv_option1.setLayoutPosition(options1);
+        wv_option2.setLayoutPosition(options2);
+        wv_option3.setLayoutPosition(options3);
+    }
+
+    /**
      * 设置分割线之间的文字的颜色
      *
      * @param textColorCenter

@@ -87,7 +87,7 @@ public class TestFragment extends Fragment implements View.OnClickListener {
                         });
                     }
                 })
-                .setType(new boolean[]{true, true, true, false, false, false})
+                .setType(new boolean[]{false, false, true, false, false, false})
                 .setLabel("", "", "", "", "", "") //设置空字符串以隐藏单位提示   hide label
                 .setDividerColor(Color.parseColor("#50FF88"))
                 .setTextColorCenter(Color.parseColor("#50FF88"))

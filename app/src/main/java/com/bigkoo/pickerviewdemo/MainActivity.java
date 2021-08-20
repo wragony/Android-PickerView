@@ -30,6 +30,7 @@ import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.bigkoo.pickerviewdemo.bean.CardBean;
 import com.bigkoo.pickerviewdemo.bean.ProvinceBean;
+import com.contrarywind.view.WheelView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -389,7 +390,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     }
                 })
-                .isDialog(true)
+                .setDividerColor(Color.parseColor("#50FF88"))
+                .setTextColorCenter(Color.parseColor("#50FF88"))
+                .setTextColorOut(Color.parseColor("#464951"))
+                .setDividerWidth(2)
+                .setBgColor(Color.parseColor("#131519"))
+                .setDividerType(WheelView.DividerType.RECTANGLE)
+                .setContentTextSize(16)
+                .setLineSpacingMultiplier(2.6F)
+                .isDialog(false)
                 .setOutSideCancelable(false)
                 .build();
 
